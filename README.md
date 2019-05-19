@@ -30,12 +30,12 @@ This framework enhances the selenium capabilities with:
 4. **[Cucumber 4](https://github.com/cucumber/cucumber)** - Cucumber is a tool that supports [Behaviour-Driven Development (BDD)](https://cucumber.io/blog/intro-to-bdd-and-tdd/) - a software development process that aims to enhance software quality and reduce maintenance costs.
 This is the main test management framework that allows to define test definition using [Gherkin](https://cucumber.io/docs/gherkin/) DSL.
 5. **[Yandex Ashot](https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot)** - WebDriver screenshot utility.
-This library facilitates the screenshot process and allows to make screenshot of the entire page by handling the scrolling. It allows to take screenshot of a segment of the page.
+This library facilitates the process of taking a screenshot and allows to make screenshot of the entire page by handling the scrolling. It allows to take screenshot of a segment of the page.
 6. **[Hamcrest](https://github.com/hamcrest/JavaHamcrest)** - library of matchers that can be combined into creating flexible assert expressions.
 7. **[Logback](https://github.com/qos-ch/logback)** - fast and flexible logging framework.
 8. **[Spring](https://github.com/spring-projects/spring-framework)** - Spring is an [Inversion of Control(IoC)](https://en.wikipedia.org/wiki/Inversion_of_control) container via dependency injection.
 In this framework it is used to initialize JAVA classes, load configuration and dependency injection.
-9. **[Maven](https://maven.apache.org)** - project management tool that allows to manage the build and reporting of the project.
+9. **[Maven](https://maven.apache.org)** - project management tool that allows to manage the build and reporting of the project, dependency management, trigger test execution, generate reports.
 10. **[Lombok](https://projectlombok.org)** - java library that allows to using annotation based configuration automatically generate getters, setters, constructors, initialize loggers, equals methods. 
 
 ## Get Started
