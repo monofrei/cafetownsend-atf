@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import org.testmonkeys.maui.core.browser.Browser;
 import org.testmonkeys.maui.core.factory.PageFactory;
 import org.testmonkeys.maui.core.factory.PageScanner;
-import org.testmonkeys.maui.core.page.Page;
 
 import java.util.concurrent.TimeUnit;
 
@@ -44,10 +43,13 @@ public class UIScenarioContext extends ScenarioContext {
     @Getter
     private PageFactory pageFactory;
 
+    @Getter
+    private PageScanner pageScanner;
+
     public PageFactory initPageFactory() {
         currentBrowser = initBrowser();
-        PageScanner scanner = new PageScanner(pagesPackage);
-        this.pageFactory =  new PageFactory(currentBrowser, scanner, baseUrl);
+        this.pageScanner = new PageScanner(pagesPackage);
+        this.pageFactory = new PageFactory(currentBrowser, pageScanner, baseUrl);
         return pageFactory;
     }
 

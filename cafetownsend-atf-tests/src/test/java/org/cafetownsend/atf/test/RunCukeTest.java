@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        tags = {"@run"},
         features = {"src/test/resources/features"},
         plugin = {
                 "json:target/cucumber.json",
@@ -14,7 +13,9 @@ import org.junit.runner.RunWith;
         },
         glue = {
                 "org.cafetownsend.atf.test.steps",
-                "org.cafetownsend.atf.test.hooks"
+                "org.cafetownsend.atf.test.hooks",
+                "org.cafetownsend.atf.test.config"
         }
 )
-public class RunCukeTest {}
+public class RunCukeTest {
+}

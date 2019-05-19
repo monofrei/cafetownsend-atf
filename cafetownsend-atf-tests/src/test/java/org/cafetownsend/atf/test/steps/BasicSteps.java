@@ -8,7 +8,6 @@ import org.cafetownsend.atf.test.steps.actions.PageActions;
 import org.cafetownsend.atf.ui.config.UIScenarioContext;
 import org.cafetownsend.atf.ui.pages.LoginPage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.testmonkeys.maui.core.page.Page;
 
 import static org.cafetownsend.atf.assertion.AtfAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -23,7 +22,7 @@ public class BasicSteps {
     @Autowired
     private UIScenarioContext context;
 
-    @Given("^user opens the (.*)$")
+    @Given("^user opens the (.*) page$")
     public void openPageByName(String pageName) {
         pageActions.openPage(pageName);
     }
@@ -34,9 +33,8 @@ public class BasicSteps {
         loginPage.login(username, password);
     }
 
-    @Then("^user is redirected to (.*)$")
+    @Then("^user is redirected to (.*) page$")
     public void pageIsOpened(String pageName) {
-        Page page = context.getPageFactory().createPage(pageName);
         assertThat("current page is " + pageName, pageActions.pageIsOpened(pageName), is(true));
     }
 
