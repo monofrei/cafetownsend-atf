@@ -1,6 +1,6 @@
 package org.cafetownsend.atf.test.steps.actions;
 
-import org.cafetownsend.atf.ui.config.UIScenarioContext;
+import org.cafetownsend.atf.test.config.UIScenarioContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.testmonkeys.maui.core.page.Page;

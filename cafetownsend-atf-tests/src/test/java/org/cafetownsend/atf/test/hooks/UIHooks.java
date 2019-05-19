@@ -4,7 +4,7 @@ import cucumber.api.Result;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import org.cafetownsend.atf.ui.config.UIScenarioContext;
+import org.cafetownsend.atf.test.config.UIScenarioContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UIHooks {
@@ -13,8 +13,8 @@ public class UIHooks {
     private UIScenarioContext context;
 
     @Before
-    public void before() {
-        context.initContext();
+    public void before(Scenario scenario) {
+        context.initContext(scenario);
     }
 
     @After

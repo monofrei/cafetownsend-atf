@@ -36,7 +36,6 @@ public class ScreenshotUtils {
         return dprObject.floatValue();
     }
 
-
     public byte[] makeScreenshot() {
 
         final Screenshot screenshot = new AShot()

@@ -13,6 +13,9 @@ public class GlobalHooks {
 
     @Before
     public void before(Scenario scenario) {
+        /*Initialize the cucumber context with the current scenario
+         * This is required for the Cucumber Logs appender to work.
+         * */
         CucumberScenarioContext.getInstance().setScenario(scenario);
     }
 }

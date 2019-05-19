@@ -1,5 +1,6 @@
-package org.cafetownsend.atf.ui.config;
+package org.cafetownsend.atf.test.config;
 
+import cucumber.api.Scenario;
 import lombok.Getter;
 import org.cafetownsend.atf.config.ScenarioContext;
 import org.cafetownsend.atf.ui.DriverFactory;
@@ -62,7 +63,11 @@ public class UIScenarioContext extends ScenarioContext {
     @Getter
     private ScreenshotUtils screenshotUtils;
 
-    public PageFactory initContext() {
+    @Getter
+    private Scenario currentScenario;
+
+    public PageFactory initContext(Scenario scenario) {
+        this.currentScenario = scenario;
         currentBrowser = initBrowser();
         this.pageScanner = new PageScanner(pagesPackage);
         this.pageFactory = new PageFactory(currentBrowser, pageScanner, baseUrl);
