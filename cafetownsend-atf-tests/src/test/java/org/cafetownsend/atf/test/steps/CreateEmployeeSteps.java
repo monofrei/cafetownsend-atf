@@ -33,17 +33,16 @@ public class CreateEmployeeSteps {
     @When("user approves the creation of the new user")
     public void userApprovesTheCreationOfTheNewUser() {
         EmployeesPage employeesPage = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
-        employeesPage.getCreateEmployeeForm().addEmployee();
+        employeesPage.createEmployeeForm().addEmployee();
     }
 
-    @Then("the employee (.*) (.*) is present in the employee list")
-    public void newCreatedEmployeeIsPresentInTheList(String firstName, String lastName) {
+    @Then("the employee {string} is present in the employee list")
+    public void newCreatedEmployeeIsPresentInTheList(String expected) {
         EmployeesPage employeesPage = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
 
         List<String> employeeNames = employeesPage.getEmployeeNames();
         assertThat("Employee list is not empty", employeeNames, not(empty()));
 
-        String expected = String.format("%s %s", firstName, lastName);
         assertThat(String.format("employee '%s' is present in the list", expected), employeeNames, hasItem(expected));
     }
 
@@ -51,5 +50,19 @@ public class CreateEmployeeSteps {
     public void theEmployeesAreDeletedFromTheList(List<String> employeeNames) {
         EmployeesPage employeesPage = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
         employeesPage.deleteEmployee(employeeNames);
+    }
+
+    @When("user opens the employee {string} details")
+    public void userOpensTheEmployeeFirstNameLastNameDetails(String name) {
+        EmployeesPage employeesPage = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
+        employeesPage.openEmployeeDetails(name);
+    }
+
+    @Then("the employee details are:")
+    public void theEmployeeDetailsAre(Employee expected) {
+        EmployeesPage page = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
+        Employee employeeDetails = page.editEmployeeDetails().getEmployeeDetails();
+
+        assertThat("employee details are[" + expected + "]", expected, is(employeeDetails));
     }
 }
