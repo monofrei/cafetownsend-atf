@@ -2,6 +2,9 @@ Feature: Create user
 
   Background:
     Given user is logged into the application
+    And the employees are deleted from the list
+      | marin onofrei |
+      | John Smith    |
 
   Scenario Outline: Create new user <firstName> <lastName>
     And user opens the Create Employee form

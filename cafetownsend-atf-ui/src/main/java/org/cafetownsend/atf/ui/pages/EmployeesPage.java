@@ -3,6 +3,8 @@ package org.cafetownsend.atf.ui.pages;
 import lombok.Getter;
 import org.cafetownsend.atf.models.Employee;
 import org.cafetownsend.atf.ui.modules.CreateEmployeeForm;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testmonkeys.maui.pageobjects.ElementAccessor;
 import org.testmonkeys.maui.pageobjects.PageAccessor;
@@ -51,7 +53,38 @@ public class EmployeesPage extends CafeAbstractPage {
         return all.stream().map(Button::getText).collect(Collectors.toList());
     }
 
-    public String getEmployee(int order) {
-        return this.employees.get(order).getText();
+    public void deleteEmployee(List<String> names) {
+        List<Button> all = this.employees.getAll();
+        for (Button employee : all) {
+            String text = employee.getText();
+            if (!names.contains(text)) continue;
+
+            employee.click();
+            this.delete.click();
+            approveEmployeeDeletion(text);
+        }
+    }
+
+    public void approveEmployeeDeletion(String employeeName) {
+        getEmployeeDeletionAlert().accept();
+    }
+
+    public void cancelEmployeeDeletion(String employeeName) {
+        getEmployeeDeletionAlert().dismiss();
+    }
+
+    private Alert getEmployeeDeletionAlert() {
+        NoAlertPresentException noAlertPresentException = new NoAlertPresentException("The Delete Employee alert is not present");
+
+        try {
+            Alert alert = this.getBrowser().getDriver().switchTo().alert();
+
+            if (!alert.getText().startsWith("Are you sure you want to delete"))
+                throw noAlertPresentException;
+
+            return alert;
+        } catch (NoAlertPresentException e) {
+            throw noAlertPresentException;
+        }
     }
 }

@@ -18,8 +18,8 @@ public class CreateEmployeeSteps {
     @Autowired
     private UIScenarioContext uiScenarioContext;
 
-    @Given("user opens the (.*) form")
-    public void userOpensCreateForm(String formName) {
+    @Given("user opens the Create Employee form")
+    public void userOpensCreateForm() {
         EmployeesPage employeesPage = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
         employeesPage.openCreateForm();
     }
@@ -45,5 +45,11 @@ public class CreateEmployeeSteps {
 
         String expected = String.format("%s %s", firstName, lastName);
         assertThat(String.format("employee '%s' is present in the list", expected), employeeNames, hasItem(expected));
+    }
+
+    @Given("the employees are deleted from the list")
+    public void theEmployeesAreDeletedFromTheList(List<String> employeeNames) {
+        EmployeesPage employeesPage = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
+        employeesPage.deleteEmployee(employeeNames);
     }
 }
