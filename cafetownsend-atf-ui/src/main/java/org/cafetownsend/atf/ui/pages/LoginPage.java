@@ -5,7 +5,7 @@ import org.testmonkeys.maui.pageobjects.PageAccessor;
 import org.testmonkeys.maui.pageobjects.elements.Button;
 import org.testmonkeys.maui.pageobjects.elements.Input;
 
-@PageAccessor(name = "Login", url = "/")
+@PageAccessor(name = "Login", url = "/login")
 public class LoginPage extends CafeAbstractPage {
 
     @ElementAccessor(elementName = "Username", byXPath = "//input[@ng-model='user.name']")

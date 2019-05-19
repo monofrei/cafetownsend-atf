@@ -81,13 +81,22 @@ public class EmployeesPage extends CafeAbstractPage {
     }
 
     private Alert getEmployeeDeletionAlert() {
-        NoAlertPresentException noAlertPresentException = new NoAlertPresentException("The Delete Employee alert is not present");
+        return getAlert("Are you sure you want to delete");
+    }
+
+    public Alert getCreationErrorAlert() {
+        return getAlert("Error trying to create a new employee:");
+    }
+
+    private Alert getAlert(String alertMessage) {
+        NoAlertPresentException noAlertPresentException =
+                new NoAlertPresentException(String.format("No alert with message [%s] found", alertMessage));
 
         try {
             this.getBrowser().getDynamicWaiter().until(ExpectedConditions.alertIsPresent());
             Alert alert = this.getBrowser().getDriver().switchTo().alert();
 
-            if (!alert.getText().startsWith("Are you sure you want to delete"))
+            if (!alert.getText().startsWith(alertMessage))
                 throw noAlertPresentException;
 
             return alert;
@@ -111,7 +120,11 @@ public class EmployeesPage extends CafeAbstractPage {
         return this.createEmployeeForm;
     }
 
-    public EditEmployeeDetails editEmployeeDetails() {
+    public EditEmployeeDetails editEmployeeForm() {
         return this.editEmployeeForm;
+    }
+
+    public void closeCreationErrorAlert() {
+        this.getCreationErrorAlert().dismiss();
     }
 }

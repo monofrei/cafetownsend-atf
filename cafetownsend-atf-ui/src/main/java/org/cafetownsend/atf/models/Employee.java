@@ -2,8 +2,6 @@ package org.cafetownsend.atf.models;
 
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -17,7 +15,7 @@ public class Employee {
     private String lastName;
 
     @NonNull
-    private LocalDate startDate;
+    private String startDate;
 
     @NonNull
     private String email;
@@ -30,8 +28,4 @@ public class Employee {
 
     @EqualsAndHashCode.Exclude
     private String password;
-
-    public void setStartDate(String stringValue) {
-        this.startDate = LocalDate.parse(stringValue);
-    }
 }

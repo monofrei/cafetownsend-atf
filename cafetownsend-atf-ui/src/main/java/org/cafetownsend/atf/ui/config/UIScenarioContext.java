@@ -3,6 +3,7 @@ package org.cafetownsend.atf.ui.config;
 import lombok.Getter;
 import org.cafetownsend.atf.config.ScenarioContext;
 import org.cafetownsend.atf.ui.DriverFactory;
+import org.cafetownsend.atf.ui.utils.ScreenshotUtils;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -37,6 +38,18 @@ public class UIScenarioContext extends ScenarioContext {
     @Value("${browser.options}")
     private String browserOptions;
 
+    @Value("${browser.options.splitter}")
+    private String browserOptionsSplitter;
+
+    @Value("${screenshot.extension}")
+    private String IMAGE_FILE_EXTENSION = ".png";
+
+    @Value("${screenshot.format}")
+    private String IMAGE_FORMAT = "PNG";
+
+    @Value("${logs.folder}")
+    private String LOG_BASE_DIR = "target/logs/";
+
     @Getter
     private Browser currentBrowser;
 
@@ -46,15 +59,19 @@ public class UIScenarioContext extends ScenarioContext {
     @Getter
     private PageScanner pageScanner;
 
-    public PageFactory initPageFactory() {
+    @Getter
+    private ScreenshotUtils screenshotUtils;
+
+    public PageFactory initContext() {
         currentBrowser = initBrowser();
         this.pageScanner = new PageScanner(pagesPackage);
         this.pageFactory = new PageFactory(currentBrowser, pageScanner, baseUrl);
+        this.screenshotUtils = new ScreenshotUtils(IMAGE_FILE_EXTENSION, IMAGE_FORMAT, LOG_BASE_DIR, currentBrowser.getDriver());
         return pageFactory;
     }
 
-    private Browser initBrowser(){
-        WebDriver driver = DriverFactory.initDriver(browser, browserOptions.split(","));
+    private Browser initBrowser() {
+        WebDriver driver = DriverFactory.initDriver(browser, browserOptions.split(browserOptionsSplitter));
         return new Browser(driver, TimeUnit.SECONDS, timeout, pageTimeout);
     }
 }

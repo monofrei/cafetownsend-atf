@@ -6,6 +6,7 @@ import cucumber.api.java.en.When;
 import org.cafetownsend.atf.models.Employee;
 import org.cafetownsend.atf.ui.config.UIScenarioContext;
 import org.cafetownsend.atf.ui.pages.EmployeesPage;
+import org.openqa.selenium.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -46,23 +47,22 @@ public class CreateEmployeeSteps {
         assertThat(String.format("employee '%s' is present in the list", expected), employeeNames, hasItem(expected));
     }
 
-    @Given("the employees are deleted from the list")
-    public void theEmployeesAreDeletedFromTheList(List<String> employeeNames) {
-        EmployeesPage employeesPage = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
-        employeesPage.deleteEmployee(employeeNames);
-    }
-
-    @When("user opens the employee {string} details")
-    public void userOpensTheEmployeeFirstNameLastNameDetails(String name) {
-        EmployeesPage employeesPage = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
-        employeesPage.openEmployeeDetails(name);
-    }
-
-    @Then("the employee details are:")
-    public void theEmployeeDetailsAre(Employee expected) {
+    @Then("the application displays the creation error alert window with message '(.*)'")
+    public void theApplicationDisplaysTheAlertWindowWithMessage(String message) {
         EmployeesPage page = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
-        Employee employeeDetails = page.editEmployeeDetails().getEmployeeDetails();
+        Alert creationErrorAlert = page.getCreationErrorAlert();
+        assertThat(String.format("aler %s is displayed", message), creationErrorAlert.getText(), is(message));
+    }
 
-        assertThat("employee details are[" + expected + "]", expected, is(employeeDetails));
+    @When("user closes the creation error alert")
+    public void userClosesTheErrorAlert() {
+        EmployeesPage page = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
+        page.closeCreationErrorAlert();
+    }
+
+    @When("user closes the Create User page")
+    public void userClosesTheCreateUserPage() {
+        EmployeesPage employeesPage = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
+        employeesPage.createEmployeeForm().cancel();
     }
 }

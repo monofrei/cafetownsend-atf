@@ -14,13 +14,15 @@ public class UIHooks {
 
     @Before
     public void before() {
-        context.initPageFactory();
+        context.initContext();
     }
 
     @After
     public void after(Scenario scenario) {
         if (scenario.getStatus().equals(Result.Type.FAILED)) {
-            //TODO add screenshot on fail
+            byte[] bytes = context.getScreenshotUtils().makeScreenshot();
+            context.getScreenshotUtils().saveScreenshot(bytes);
+            scenario.embed(bytes, "image/png");
         }
         context.getCurrentBrowser().quit();
     }

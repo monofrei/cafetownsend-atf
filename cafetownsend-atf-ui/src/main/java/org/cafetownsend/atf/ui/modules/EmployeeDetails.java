@@ -5,8 +5,6 @@ import org.testmonkeys.maui.pageobjects.ElementAccessor;
 import org.testmonkeys.maui.pageobjects.elements.Input;
 import org.testmonkeys.maui.pageobjects.modules.AbstractModule;
 
-import java.time.LocalDate;
-
 public class EmployeeDetails extends AbstractModule {
 
     @ElementAccessor(elementName = "First Name", byXPath = ".//input[@type='text' and @ng-model='selectedEmployee.firstName']")
@@ -31,7 +29,7 @@ public class EmployeeDetails extends AbstractModule {
     public Employee getEmployeeDetails() {
         return new Employee(firstName.getText(),
                 lastName.getText(),
-                LocalDate.parse(startDate.getText()),
+                startDate.getText(),
                 email.getText());
     }
 

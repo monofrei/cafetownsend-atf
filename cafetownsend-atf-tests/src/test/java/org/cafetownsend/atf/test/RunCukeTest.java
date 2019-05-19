@@ -6,9 +6,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
+        junit = "--step-notifications",
         features = {"src/test/resources/features"},
         plugin = {
-                "json:target/cucumber.json",
+                "json:target/jsonReports/cucumber.json",
                 "org.cafetownsend.atf.formatter.CucumberLogsFormatter"
         },
         glue = {
@@ -19,3 +20,4 @@ import org.junit.runner.RunWith;
 )
 public class RunCukeTest {
 }
+

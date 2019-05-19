@@ -30,7 +30,6 @@ public class CucumberLogsFormatter implements ConcurrentEventListener {
         publisher.registerHandlerFor(TestCaseFinished.class, this::handleTestCaseFinished);
         publisher.registerHandlerFor(TestStepStarted.class, this::handleTestStepStarted);
         publisher.registerHandlerFor(TestStepFinished.class, this::handleTestStepFinished);
-        publisher.registerHandlerFor(TestRunFinished.class, this::finishReport);
     }
 
     private void handleTestSourceRead(TestSourceRead event) {
@@ -51,10 +50,6 @@ public class CucumberLogsFormatter implements ConcurrentEventListener {
         return gherkinDocument.getFeature();
     }
 
-    private void finishReport(TestRunFinished event) {
-        //todo log execution summary
-    }
-
     private void handleTestStepFinished(TestStepFinished event) {
         if (event.testStep instanceof PickleStepTestStep) {
             PickleStepTestStep testStep = (PickleStepTestStep) event.testStep;
@@ -65,7 +60,7 @@ public class CucumberLogsFormatter implements ConcurrentEventListener {
                 throw new RuntimeException("Failed to found step:[" + testStep.getStepText() + "]");
 
             Result.Type status = event.result.getStatus();
-            //todo log duration
+
             if (status.equals(FAILED))
                 logger.info("[STEP FAILED]: {} {} {}", first.get().getKeyword(), testStep.getStepText(), event.result.getError());
             else
@@ -106,7 +101,7 @@ public class CucumberLogsFormatter implements ConcurrentEventListener {
         context.setCurrentScenario(scenario);
         TestLogHelper.stopTestLogging();
 
-        TestLogHelper.startTestLogging(TestLogHelper.createTimeStamp() + "_" + scenario.getName() + "_" + line);
+        TestLogHelper.startTestLogging(TestLogHelper.createTimeStamp() + "_" + event.testCase.getName() + "_" + line);
         logger.info("[TEST STARTED]: {}", event.testCase.getName());
 
     }

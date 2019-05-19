@@ -1,5 +1,6 @@
 package org.cafetownsend.atf.ui.pages;
 
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testmonkeys.maui.pageobjects.AbstractPage;
 import org.testmonkeys.maui.pageobjects.ElementAccessor;
@@ -20,12 +21,20 @@ public class CafeAbstractPage extends AbstractPage {
                 .until(ExpectedConditions.urlMatches(this.getUrl() + ".*"));
     }
 
+    //TODO investigate how handle the overlay of the button
     public void logout() {
-        this.logout.click();
+        this.getBrowser()
+                .getDynamicWaiter()
+                .ignoring(WebDriverException.class)
+                .until((driver) -> {
+                    driver.findElement(this.logout.getLocator().getSeleniumLocator()).click();
+                    return true;
+                });
+//        this.logout.click();
     }
 
-    public void getGreetings() {
-        this.greetings.getText();
+    public String getGreetings() {
+        return this.greetings.getText();
     }
 
 }
