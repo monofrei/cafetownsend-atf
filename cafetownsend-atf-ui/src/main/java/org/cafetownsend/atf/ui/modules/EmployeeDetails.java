@@ -3,7 +3,12 @@ package org.cafetownsend.atf.ui.modules;
 import org.cafetownsend.atf.models.Employee;
 import org.testmonkeys.maui.pageobjects.ElementAccessor;
 import org.testmonkeys.maui.pageobjects.elements.Input;
+import org.testmonkeys.maui.pageobjects.elements.html.HtmlAttribute;
 import org.testmonkeys.maui.pageobjects.modules.AbstractModule;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Optional;
 
 public class EmployeeDetails extends AbstractModule {
 
@@ -33,4 +38,17 @@ public class EmployeeDetails extends AbstractModule {
                 email.getText());
     }
 
+    public boolean isInvalid(String detail) {
+        try {
+            Field declaredField = this.getClass().getSuperclass().getDeclaredField(detail);
+            Input input = (Input) declaredField.get(this);
+            List<HtmlAttribute> attributes = input.getHtmlElement().getAttributes();
+            Optional<HtmlAttribute> clazz = attributes.stream().filter(a -> a.getName().equals("class")).findFirst();
+
+            return clazz.map(htmlAttribute -> htmlAttribute.getValue().contains("ng-invalid")).orElse(false);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return false;
+        }
+    }
 }

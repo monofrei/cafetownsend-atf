@@ -65,4 +65,11 @@ public class CreateEmployeeSteps {
         EmployeesPage employeesPage = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
         employeesPage.createEmployeeForm().cancel();
     }
+
+    @Then("the application highlights the {string} as invalid")
+    public void theApplicationHighlightsTheElementAsInvalid(String field) {
+        EmployeesPage page = uiScenarioContext.getPageFactory().createPage(EmployeesPage.class);
+        boolean actual = page.createEmployeeForm().isInvalid(field);
+        assertThat("field [" + field + "] is highlighted invalid", actual, is(true));
+    }
 }
