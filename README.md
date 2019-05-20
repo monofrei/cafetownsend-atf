@@ -77,6 +77,8 @@ The evidence folders are located under `cafetownsend-atf-tests/target/logs`. Thi
 ### Execute using an IDE
 Import the project as a maven projct into any IDE of choice. Run the class `class org.cafetownsend.atf.test.RunCukeTest`. No additional configuration is needed the default settings will execute all the tests.
 
+For more information on configuring how cucumber executs your tests please read this guide: [Running Cucumber](https://cucumber.io/docs/cucumber/api/#running-cucumber)
+
 ## Project Structure
 ```
     cafetownsend-atf
