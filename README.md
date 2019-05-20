@@ -41,8 +41,8 @@ In this framework it is used to initialize JAVA classes, load configuration and 
 ## Get Started
 Clone the project using git.
 
-### Execute all test using maven
-To execute the test from using CLI open a command prompt in the cloned repository location and execute the following command:
+### Execute all tests using maven
+To execute the tests using CLI open a command prompt in the cloned repository folder and execute the following command:
 
 `mvn clean verify`
 
