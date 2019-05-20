@@ -47,4 +47,20 @@ public class AuthenticationSteps {
         EmployeesPage page = scenarioContext.getPageFactory().createPage(EmployeesPage.class);
         page.logout();
     }
+
+    @Then("the application highlights the Login (.*) as invalid")
+    public void theApplicationHighlightsTheElementAsInvalid(String field) {
+        LoginPage page = scenarioContext.getPageFactory().createPage(LoginPage.class);
+        boolean actual = page.hasValidationErrors(field);
+        assertThat("field [" + field + "] is highlighted as invalid", actual, is(true));
+        scenarioContext.makeScreenshot();
+    }
+
+    @Then("the application displays message {string}")
+    public void theApplicationDisplaysMessageInvalidUsernameOrPassword(String message) {
+        LoginPage page = scenarioContext.getPageFactory().createPage(LoginPage.class);
+        assertThat("error message is displayed on login form", page.errorMessageIsDisplayed(), is(true));
+        assertThat("error message is [" + message + "]", page.getErrorMessage(), is(message));
+        scenarioContext.makeScreenshot();
+    }
 }

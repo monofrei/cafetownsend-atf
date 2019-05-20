@@ -1,28 +1,24 @@
 package org.cafetownsend.atf.ui.modules;
 
 import org.cafetownsend.atf.models.Employee;
+import org.cafetownsend.atf.ui.elements.ValidatedInput;
+import org.cafetownsend.atf.ui.pages.Validatable;
 import org.testmonkeys.maui.pageobjects.ElementAccessor;
-import org.testmonkeys.maui.pageobjects.elements.Input;
-import org.testmonkeys.maui.pageobjects.elements.html.HtmlAttribute;
 import org.testmonkeys.maui.pageobjects.modules.AbstractModule;
 
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Optional;
-
-public class EmployeeDetails extends AbstractModule {
+public class EmployeeDetails extends AbstractModule implements Validatable {
 
     @ElementAccessor(elementName = "First Name", byXPath = ".//input[@type='text' and @ng-model='selectedEmployee.firstName']")
-    protected Input firstName;
+    protected ValidatedInput firstName;
 
     @ElementAccessor(elementName = "Last Name", byXPath = ".//input[@type='text' and @ng-model='selectedEmployee.lastName']")
-    protected Input lastName;
+    protected ValidatedInput lastName;
 
     @ElementAccessor(elementName = "Start Date", byXPath = ".//input[@type='text' and @ng-model='selectedEmployee.startDate']")
-    protected Input startDate;
+    protected ValidatedInput startDate;
 
     @ElementAccessor(elementName = "Email", byXPath = ".//input[@type='email' and @ng-model='selectedEmployee.email']")
-    protected Input email;
+    protected ValidatedInput email;
 
     public void fillInEmployeeDetail(Employee employee) {
         this.firstName.type(employee.getFirstName());
@@ -38,17 +34,10 @@ public class EmployeeDetails extends AbstractModule {
                 email.getText());
     }
 
-    public boolean isInvalid(String detail) {
-        try {
-            Field declaredField = this.getClass().getSuperclass().getDeclaredField(detail);
-            Input input = (Input) declaredField.get(this);
-            List<HtmlAttribute> attributes = input.getHtmlElement().getAttributes();
-            Optional<HtmlAttribute> clazz = attributes.stream().filter(a -> a.getName().equals("class")).findFirst();
-
-            return clazz.map(htmlAttribute -> htmlAttribute.getValue().contains("ng-invalid")).orElse(false);
-
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            return false;
-        }
-    }
+//    public boolean hasValidationErrors(String detail) {
+//
+//        ValidatedInput input = ReflectionUtils.getFieldInstanceByName(detail, this);
+//
+//        return !Objects.equals(input, null) && input.hasValidationErrors();
+//    }
 }

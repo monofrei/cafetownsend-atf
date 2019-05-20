@@ -1,7 +1,7 @@
 @create_employee
 Feature: Create user
 
-#  As the application under test doesn't allow capability to reset the list
+#  As the application under test doesn't offer a capability to reset the list
 #  of employees before each test the below scenario include a step that deletes
 #  the employees that will be created. Also this covers the delete functionality and
 #  no additional tests are needed for deletion from the Employees page.
@@ -53,14 +53,13 @@ Feature: Create user
       | invalid   | date     | 206-01-01   | some.valid@el.com |
       | invalid   | date     | 19-01-01    | some.valid@el.com |
 
-
   Scenario Outline: Create new employee with blank <field>
     And user opens the Create Employee form
     And user fills in all the employee details
       | firstName   | lastName   | startDate   | email   |
       | <firstName> | <lastName> | <startDate> | <email> |
     When user approves the creation of the new user
-    Then the application highlights the '<field>' as invalid
+    Then the application highlights the Employee '<field>' as invalid
     And user closes the Create User page
     Then the user '<firstName> <lastName>' is not present in the list
     Examples:

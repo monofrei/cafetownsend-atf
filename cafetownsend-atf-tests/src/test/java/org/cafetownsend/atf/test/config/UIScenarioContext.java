@@ -79,4 +79,10 @@ public class UIScenarioContext extends ScenarioContext {
         WebDriver driver = DriverFactory.initDriver(browser, browserOptions.split(browserOptionsSplitter));
         return new Browser(driver, TimeUnit.SECONDS, timeout, pageTimeout);
     }
+
+    public void makeScreenshot() {
+        byte[] bytes = this.screenshotUtils.makeScreenshot();
+        this.screenshotUtils.saveScreenshot(bytes);
+        this.currentScenario.embed(bytes, "image/png");
+    }
 }

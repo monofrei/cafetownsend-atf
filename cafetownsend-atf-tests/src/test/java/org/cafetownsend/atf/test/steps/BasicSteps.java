@@ -27,7 +27,7 @@ public class BasicSteps {
         pageActions.openPage(pageName);
     }
 
-    @When("^user logs in using the credentials (.*):(.*)$")
+    @When("^user logs in using the credentials '(.*)':'(.*)'$")
     public void logInWithCredentials(String username, String password) {
         LoginPage loginPage = context.getPageFactory().createPage(LoginPage.class);
         loginPage.login(username, password);
