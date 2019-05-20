@@ -142,7 +142,7 @@ This framework consists of three main modules:
         
         `browser` - set the browser for execution, supported values are: chrome, firefox. The browser must be installed on the machine.
         
-        `browser.options` - options that need to be applied on browser's startup. Examples:start-maximized, headless, etc.
+        `browser.options` - options that need to be applied on browser's startup. Examples:start-maximized, headless, etc. More details on [Chrome Options](https://www.guru99.com/chrome-options-desiredcapabilities.html) and [Firefox Options](https://www.guru99.com/gecko-marionette-driver-selenium.html).
         
         `browser.options.splitter` - specify which character is used as splitter for the options(comma, dot, slash, etc.).
         
