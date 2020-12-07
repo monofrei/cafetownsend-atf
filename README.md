@@ -1,6 +1,6 @@
 # Cafetownsend ATF
 
-This is a test automation framework for the application [Cafe Town Send](http://cafetownsend-angular-rails.herokuapp.com/employees).
+This is a demo test automation framework. As AUT it uses the application [Cafe Town Send](http://cafetownsend-angular-rails.herokuapp.com/employees).
 
 ## Prerequisites
 In order to be able to use this framework please make sure the following is tools are installed:
